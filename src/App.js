@@ -10,19 +10,22 @@ import "@mdi/font/css/materialdesignicons.css"
 
 
 class App extends Component {
-  state = {
+  constructor(props) {
+    super(props)
+    this.state = {
 
-    Users: [
-      { id: 1, code: "101", name: "مسعود ابراهیمی", isLogin: true, isOut: false, },
-      { id: 2, code: "102", name: "پدارم تهرانچی", isLogin: true, isOut: false, },
-      { id: 3, code: "103", name: "مجید شاه آبادی", isLogin: true, isOut: false, },
-      // { id: 4, code: 104, name: "مسعود ابراهیمی", isLogin: false }
-      // { id: 5, code: 105, name: "مسعود ابراهیمی", isLogin: false }
-    ],
-    titleName: "",
-    TypeOperation: "",
-    Time: new Date().toLocaleTimeString("fa-IR"),
-    date: new Date().toLocaleDateString("fa-IR")
+      Users: [
+        { id: 1, code: "101", name: "مسعود ابراهیمی", isLogin: true, isOut: false, },
+        { id: 2, code: "102", name: "پدارم تهرانچی", isLogin: true, isOut: false, },
+        { id: 3, code: "103", name: "مجید شاه آبادی", isLogin: true, isOut: false, },
+        // { id: 4, code: 104, name: "مسعود ابراهیمی", isLogin: false }
+        // { id: 5, code: 105, name: "مسعود ابراهیمی", isLogin: false }
+      ],
+      titleName: "",
+      TypeOperation: "",
+      Time: new Date(),
+      date: new Date().toLocaleDateString("fa-IR")
+    }
   }
   componentDidMount() {
     this.timerID = setInterval(
@@ -33,7 +36,7 @@ class App extends Component {
     clearInterval(this.timerID)
   }
   tick() {
-    this.setState({ time: new Date() })
+    this.setState({ Time: new Date() })
   }
   CreatetitleName = (e) => {
     const { Users } = this.state
@@ -48,7 +51,7 @@ class App extends Component {
     const { Users, Time, TypeOperation, titleName, date } = this.state
     e.preventDefault()
     console.log(Users);
-    console.log(Time);
+    console.log(Time.toLocaleTimeString('fa-IR'));
     console.log(TypeOperation);
     console.log(date);
     console.log(titleName);
@@ -127,26 +130,26 @@ class App extends Component {
           <strong className="second-text-head">ayan</strong>
         </div>
         <div className="login-header col-lg-8 col-md-8 col-xl-8 col-xs-12 col-sm-12 mx-sm-auto">
-          <strong  style={{fontSize:"34px"}}>حضور و غیاب پرسنل</strong>
+          <strong style={{ fontSize: "34px" }}>حضور و غیاب پرسنل</strong>
         </div>
-        <div class="row">
-          <div class="col-lg-3 col-md-2">
+        <div className="row">
+          <div className="col-lg-3 col-md-2">
           </div>
-          <div class="col-lg-6 col-md-8 login-box">
-            <div class="col-lg-10 login-title  mx-auto">
-              <input type="text" onChange={this.CreatetitleName} class=" form-control-lg text-center no-outline col-7" style={{ fontSize: "45px" }} />
-              <label class="form-control-label col-4">:کد کاربری</label>
+          <div className="col-lg-6 col-md-8 login-box">
+            <div className="col-lg-10 login-title  mx-auto">
+              <input type="text" onChange={this.CreatetitleName} className=" form-control-lg text-center no-outline col-7" style={{ fontSize: "45px" }} />
+              <label className="form-control-label col-4">:کد کاربری</label>
             </div>
             <span className="text-light" style={{ fontSize: "25px" }}>{titleName}</span>
-            <div class="col-lg-12 login-form mt-2">
-              <div class="col-lg-12 login-form ">
+            <div className="col-lg-12 login-form mt-2">
+              <div className="col-lg-12 login-form ">
                 <form onSubmit={this.Login}>
-                  <div class="form-group mx-auto col-12 text-center  mt-4 ">
+                  <div className="form-group mx-auto col-12 text-center  mt-4 ">
                     <button
                       aria-disabled="true"
                       type="submit"
                       onClick={this.Exit}
-                      class={this.userOutCss()}
+                      className={this.userOutCss()}
                       // "btn btn-outline-danger col-xl-4 col-md-4 col-sm-4 m-4"
                       // {this.userOutCss()}
                       //   titleName !== "" ? Users.map((node, index) => {
@@ -161,7 +164,7 @@ class App extends Component {
                       aria-disabled="true"
                       type="submit"
                       onClick={this.Enter}
-                      class={this.userEnterCss()}
+                      className={this.userEnterCss()}
                       // class="btn disabled btn-outline-success col-xl-4 col-md-4 col-sm-4 m-4"
                       // {this.userEnterCss()}
                       //   titleName !== "" ? Users.map((node, index) => {
