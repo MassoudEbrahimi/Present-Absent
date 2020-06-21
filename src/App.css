@@ -109,6 +109,9 @@ input:focus {
 .no-outline {
   outline: none !important;
 }
+.cursor-none {
+  cursor: none;
+}
 
 label {
   margin-bottom: 0px;

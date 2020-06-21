@@ -13,9 +13,9 @@ class App extends Component {
   state = {
 
     Users: [
-      { id: 1, code: "101", name: "مسعود ابراهیمی", isLogin: false, isOut: true, css: "btn btn-outline-danger col-xl-4 col-md-4 col-sm-4 m-4" },
-      { id: 2, code: "102", name: "پدارم تهرانچی", isLogin: false, isOut: true, css: "btn btn-outline-danger col-xl-4 col-md-4 col-sm-4 m-4" },
-      { id: 3, code: "103", name: "مجید شاه آبادی", isLogin: false, isOut: true, css: "btn btn-outline-danger col-xl-4 col-md-4 col-sm-4 m-4" },
+      { id: 1, code: "101", name: "مسعود ابراهیمی", isLogin: true, isOut: false, },
+      { id: 2, code: "102", name: "پدارم تهرانچی", isLogin: true, isOut: false, },
+      { id: 3, code: "103", name: "مجید شاه آبادی", isLogin: true, isOut: false, },
       // { id: 4, code: 104, name: "مسعود ابراهیمی", isLogin: false }
       // { id: 5, code: 105, name: "مسعود ابراهیمی", isLogin: false }
     ],
@@ -47,7 +47,7 @@ class App extends Component {
   Login = (e) => {
     const { Users, Time, TypeOperation, titleName, date } = this.state
     e.preventDefault()
-
+    console.log(Users);
     console.log(Time);
     console.log(TypeOperation);
     console.log(date);
@@ -60,7 +60,6 @@ class App extends Component {
   }
   Exit = () => {
     const { Users, titleName } = this.state
-    console.log(Users);
     const user = [...Users]
     user.forEach((node, index) => {
       if (titleName === node.name) {
@@ -68,7 +67,6 @@ class App extends Component {
         node.isLogin = true
       }
     })
-    console.log(user);
     this.setState({ TypeOperation: "خروج" })
   }
   Enter = () => {
@@ -94,28 +92,30 @@ class App extends Component {
   //   })
   //   this.setState({ Users: res })
   // }
-  // userOutCss = () => {
-  //   const { Users, titleName } = this.state
-  //   const user = [...Users]
-  //   const res = user.find((node, index) => {
-  //     if (node.name === titleName) {
-  //       return node.isLogin === true ? "btn btn-outline-danger col-xl-4 col-md-4 col-sm-4 m-4" : "btn btn-outline-danger col-xl-4 col-md-4 col-sm-4 m-4 disabled "
-  //     }
-  //   })
-  //   return res === undefined ? "btn btn-outline-danger col-xl-4 col-md-4 col-sm-4 m-4" : res
+  userOutCss = () => {
+    const { Users, titleName } = this.state
+    let res
+    const user = [...Users]
+    user.forEach((node, index) => {
+      if (node.name === titleName) {
+        return res = node.isLogin === true ? "btn disabled cursor-none d-none  btn-outline-danger col-xl-4 col-md-4 col-sm-4 m-4" : "btn btn-outline-danger col-xl-4 col-md-4 col-sm-4 m-4 "
+      }
+    })
+    return res === undefined ? "btn btn-outline-danger col-xl-4 col-md-4 col-sm-4 m-4" : res
 
-  // }
-  // userEnterCss = () => {
-  //   const { Users, titleName } = this.state
-  //   const user = [...Users]
-  //   const res = user.find((node, index) => {
-  //     if ((titleName !== "") && (node.name === titleName)) {
-  //       return node.isLogin === true ? "btn btn-outline-success col-xl-4 col-md-4 col-sm-4 m-4" : " btn btn-outline-success col-xl-4 col-md-4 col-sm-4 m-4 disabled"
-  //     }
-  //   })
-  //   return res === undefined ? "btn btn-outline-success col-xl-4 col-md-4 col-sm-4 m-4" : res
+  }
+  userEnterCss = () => {
+    const { Users, titleName } = this.state
+    let res
+    const user = [...Users]
+    user.forEach((node, index) => {
+      if (node.name === titleName) {
+        return res = node.isLogin === true ? "btn  btn-outline-success col-xl-4 col-md-4 col-sm-4 m-4" : " btn cursor-none disabled d-none btn-outline-success col-xl-4 col-md-4 col-sm-4 m-4"
+      }
+    })
+    return res === undefined ? "btn btn-outline-success col-xl-4 col-md-4 col-sm-4 m-4" : res
 
-  // }
+  }
   render() {
     const { titleName, Users } = this.state
     return (
@@ -126,8 +126,12 @@ class App extends Component {
           <strong className="first-text-head">R</strong>
           <strong className="second-text-head">ayan</strong>
         </div>
+        <div className="login-header col-lg-8 col-md-8 col-xl-8 col-xs-12 col-sm-12 mx-sm-auto">
+          <strong  style={{fontSize:"34px"}}>حضور و غیاب پرسنل</strong>
+        </div>
         <div class="row">
-          <div class="col-lg-3 col-md-2"></div>
+          <div class="col-lg-3 col-md-2">
+          </div>
           <div class="col-lg-6 col-md-8 login-box">
             <div class="col-lg-10 login-title  mx-auto">
               <input type="text" onChange={this.CreatetitleName} class=" form-control-lg text-center no-outline col-7" style={{ fontSize: "45px" }} />
@@ -137,10 +141,13 @@ class App extends Component {
             <div class="col-lg-12 login-form mt-2">
               <div class="col-lg-12 login-form ">
                 <form onSubmit={this.Login}>
-                  <div class="form-group mx-auto col-12 text-center mt-4 ">
-                    <button id="exitbtn" type="submit"
+                  <div class="form-group mx-auto col-12 text-center  mt-4 ">
+                    <button
+                      aria-disabled="true"
+                      type="submit"
                       onClick={this.Exit}
-                      class="btn btn-outline-danger col-xl-4 col-md-4 col-sm-4 m-4"
+                      class={this.userOutCss()}
+                      // "btn btn-outline-danger col-xl-4 col-md-4 col-sm-4 m-4"
                       // {this.userOutCss()}
                       //   titleName !== "" ? Users.map((node, index) => {
                       //   if (node.name === titleName) {
@@ -150,9 +157,12 @@ class App extends Component {
                       style={{ fontSize: "35px" }}>
                       خروج
                         </button>
-                    <button id="enterbtn" type="submit"
+                    <button
+                      aria-disabled="true"
+                      type="submit"
                       onClick={this.Enter}
-                      class="btn btn-outline-success col-xl-4 col-md-4 col-sm-4 m-4"
+                      class={this.userEnterCss()}
+                      // class="btn disabled btn-outline-success col-xl-4 col-md-4 col-sm-4 m-4"
                       // {this.userEnterCss()}
                       //   titleName !== "" ? Users.map((node, index) => {
                       //     if (node.name === titleName) {
