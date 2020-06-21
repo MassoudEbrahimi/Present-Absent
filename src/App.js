@@ -5,6 +5,7 @@ import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap/dist/js/bootstrap.min"
 import "@mdi/font/css/materialdesignicons.css"
+import { Notification } from './Utils/swal'
 
 
 
@@ -50,6 +51,28 @@ class App extends Component {
   Login = (e) => {
     const { Users, Time, TypeOperation, titleName, date } = this.state
     e.preventDefault()
+    if (titleName === "") {
+      Notification.fire(
+        {
+          icon: 'warning',
+          title: 'کد پرسنلی را وارد کنید'
+        }
+      )
+    }
+    else {
+      Notification.fire(
+        {
+          icon: "success",
+          title: 'ثبت ساعت کاری با موفقیت انجام شد'
+        }
+      )
+      // try {
+      //     const res = await 
+      // }
+      // catch (ex) {
+
+      // }
+    }
     console.log(Users);
     console.log(Time.toLocaleTimeString('fa-IR'));
     console.log(TypeOperation);
