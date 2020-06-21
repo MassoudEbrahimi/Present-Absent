@@ -1,38 +1,159 @@
-.App {
+body {
+  background: #222d32;
+  font-family: "Roboto", sans-serif;
+}
+body {
+  background: #222d32;
+  font-family: "Roboto", sans-serif;
+}
+
+.login-header {
+  margin: auto;
+  color: #ecf0f5;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.login-box {
+  margin-top: 20px;
+  height: auto;
+  background: #1a2226;
+  text-align: center;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.login-key {
+  height: 100px;
+  font-size: 80px;
+  line-height: 100px;
+  background: -webkit-linear-gradient(#27ef9f, #0db8de);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.first-text-head {
+  font-size: 100px;
+  color: #0db8de;
+  font-weight: bold;
+  font-family: Garamond;
 }
 
-.App-link {
-  color: #61dafb;
+.second-text-head {
+  font-size: 75px;
+  color: #ecf0f5;
+  font-weight: lighter;
+  font-family: Garamond;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.login-title {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 45px;
+  font-weight: bold;
+  color: #ecf0f5;
+}
+
+.login-form {
+  margin-top: 25px;
+  text-align: left;
+}
+
+input[type="text"] {
+  background-color: #1a2226 !important;
+  border: none;
+  border-bottom: 2px solid #0db8de;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-radius: 0px;
+  font-weight: bold;
+  outline: 0 !important;
+  margin-bottom: 20px;
+  padding-left: 0px;
+  color: #ecf0f5;
+}
+
+input[type="password"] {
+  background-color: #1a2226 !important;
+  border: none;
+  border-bottom: 2px solid #0db8de;
+  border-top: 0px;
+  border-radius: 0px;
+  font-weight: bold;
+  outline: 0;
+  padding-left: 0px;
+  margin-bottom: 20px;
+  color: #ecf0f5;
+}
+
+.form-group {
+  margin: auto;
+  margin-bottom: 40px;
+  outline: 0px;
+}
+
+.form-control:focus {
+  border-color: inherit;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-bottom: 2px solid #0db8de;
+  outline: none;
+  background-color: #1a2226;
+  color: #ecf0f5;
+}
+
+input:focus {
+  outline: none !important;
+  box-shadow: 0 0 0;
+}
+
+.no-outline {
+  outline: none !important;
+}
+
+label {
+  margin-bottom: 0px;
+}
+
+.form-control-label {
+  font-size: 18px;
+  color: #ecf0f5;
+  font-weight: normal;
+}
+
+.btn-outline-primary {
+  border-color: #0db8de !important;
+  color: #0db8de !important;
+  border-radius: 0px;
+  font-weight: bold;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.btn-outline-primary:hover {
+  background-color: #0db8de !important;
+  color: #ecf0f5 !important;
+  right: 0px;
+  outline: none;
+}
+button {
+  font-size: 255px;
+}
+
+.login-btm {
+  float: left;
+}
+
+.login-button {
+  padding-right: 0px;
+  text-align: right;
+  margin-bottom: 25px;
+}
+
+.login-text {
+  text-align: left;
+  padding-left: 0px;
+  color: #1a2226;
+}
+
+.loginbttm {
+  padding: 0px;
 }

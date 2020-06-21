@@ -1,0 +1,17 @@
+@font-face {
+	font-family: "Iransnas_Light";
+	font-style: normal;
+	font-weight: 300;
+	src: url('../fonts/iransans/eot/IRANSansWeb(FaNum)_Light.eot');
+	src: url('../fonts/iransans/eot/IRANSansWeb(FaNum)_Light.eot?#iefix') format('embedded-opentype'), /* IE6-8 */
+	url('../fonts/iransans/woff2/IRANSansWeb(FaNum)_Light.woff2') format('woff2'), /* FF39+,Chrome36+, Opera24+*/
+	url('../fonts/iransans/woff/IRANSansWeb(FaNum)_Light.woff') format('woff'), /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+	url('../fonts/iransans/ttf/IRANSansWeb(FaNum)_Light.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: "Yekan";
+	font-style: normal;
+	font-size: normal;
+	src: url("../font/yekan/Yekan.ttf")
+}
