@@ -1,20 +1,11 @@
-import http from '../services/httpsService'
+import http from '../Services/HttpServices'
 import config from "../config.json"
 
-//****************************************************************
-//************************* From-Creator *******************************
-export function CreateForm(data) {
-    return http.post(config.api_CreateModal, data)
-}
 
-//****************************************************************
-//************************* CreateWork *******************************
-export function deleteNewJob(data) {
-    return http.post(config.api_DeleteNewJob, data)
+
+export function getData(data) {
+    return http.post(config.data_Users, data)
 }
-export function CreateNewJob(data) {
-    return http.post(config.api_CreateNewJob, data)
-}
-export function UpdateNewJob(data) {
-    return http.post(config.api_UpdateNewJob, data)
+export function InsertWork(data) {
+    return http.post(config.data_UsersPost, data)
 }
