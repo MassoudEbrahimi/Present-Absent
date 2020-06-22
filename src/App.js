@@ -17,23 +17,15 @@ class App extends Component {
     this.state = {
 
       Users: [],
-      // { id: 1, code: "101", name: "مسعود ابراهیمی", isLogin: true, isOut: false, },
-      // { id: 2, code: "102", name: "پدارم تهرانچی", isLogin: true, isOut: false, },
-      // { id: 3, code: "103", name: "مجید شاه آبادی", isLogin: true, isOut: false, },
       titleName: "",
       TypeOperation: "",
       code: "",
       time: new Date(),
       date: new Date().toLocaleDateString("fa-IR"),
       lastTime: "",
-      // defaultLogin: false
+  
     }
   }
-  // CreateUsers = async () => {
-  //   let stdate = new Date().toLocaleDateString("fa-IR")
-  //   const res = await getData({ stdate })
-  //   return  res.data
-  // }
 
   async componentDidMount() {
     this.timerID = setInterval(
