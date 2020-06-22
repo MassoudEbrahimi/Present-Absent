@@ -23,7 +23,7 @@ class App extends Component {
       time: new Date(),
       date: new Date().toLocaleDateString("fa-IR"),
       lastTime: "",
-  
+
     }
   }
 
@@ -32,9 +32,21 @@ class App extends Component {
       () => this.tick(),
       1000)
     let stdate = new Date().toLocaleDateString("fa-IR")
-    debugger
+
     const res = await getData({ stdate })
-    this.setState({ Users: res.data })
+    const result = res.data.map((o, i) => {
+      for (var element in o) {
+        if (o[element] === 1) {
+          o[element] = true
+        }
+        else if (o[element] === 0) {
+          o[element] = false
+        }
+      }
+      return o
+    })
+    debugger
+    this.setState({ Users: result })
   }
   componentWillMount() {
     clearInterval(this.timerID)
@@ -189,11 +201,11 @@ class App extends Component {
         </div>
         <div className="row">
           <div className="col-lg-3 col-md-2">
-        
+
           </div>
           <div className="col-lg-6 col-md-6 login-box">
             <div className="col-lg-10 login-title  mx-auto">
-              <input autoComplete="off" value={this.state.code} id="input" type="text" onChange={this.CreatetitleName} className="input form-control-lg text-center no-outline col-7" style={{ fontSize: "45px" }} />
+              <input autoComplete="off" maxLength={6} minLength={2} value={this.state.code} id="input" type="text" onChange={this.CreatetitleName} className="input form-control-lg text-center no-outline col-7" style={{ fontSize: "45px" }} />
               <label className="form-control-label col-4" >:کد کاربری</label>
             </div>
             <span className="text-light" style={{ fontSize: "25px" }}>{titleName}</span>
