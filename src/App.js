@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import './App.css';
-import $ from 'jquery'
+
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap/dist/js/bootstrap.min"
 import "@mdi/font/css/materialdesignicons.css"
@@ -65,7 +65,7 @@ class App extends Component {
     this.setState({ titleName: res, lastTime: time, code: code ? code : null })
   }
   Login = async (e) => {
-    const { Users, time, TypeOperation, titleName, code } = this.state
+    const { Users, TypeOperation, titleName, code } = this.state
     let Single;
     Users.forEach((node, index) => {
       if (node.name === titleName)
