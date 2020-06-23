@@ -17,36 +17,34 @@ class App extends Component {
     this.state = {
 
       Users: [],
-      titleName: "",
+      titleName: null,
       TypeOperation: "",
-      code: "",
+      inputCode: "",
       time: new Date(),
       date: new Date().toLocaleDateString("fa-IR"),
-      lastTime: "",
+      lastPersonStatus: "",
 
     }
   }
-
   async componentDidMount() {
     this.timerID = setInterval(
       () => this.tick(),
       1000)
     let stdate = new Date().toLocaleDateString("fa-IR")
-
     const res = await getData({ stdate })
-    const result = res.data.map((o, i) => {
-      for (var element in o) {
-        if (o[element] === 1) {
-          o[element] = true
-        }
-        else if (o[element] === 0) {
-          o[element] = false
-        }
-      }
-      return o
-    })
+    // const result = res.data.map((o, i) => {
+    //   for (var element in o) {
+    //     if (o[element] === 1) {
+    //       o[element] = true
+    //     }
+    //     else if (o[element] === 0) {
+    //       o[element] = false
+    //     }
+    //   }
+    //   return o
+    // })
     debugger
-    this.setState({ Users: result })
+    this.setState({ Users: res.data })
   }
   componentWillMount() {
     clearInterval(this.timerID)
@@ -55,48 +53,52 @@ class App extends Component {
     this.setState({ time: new Date() })
   }
   CreatetitleName = (e) => {
+
     const { Users } = this.state
-    let res
-    let time
-    let code
+    let res, code, status
     Users.forEach((node, index) => {
       if (node.code === e.target.value) {
         res = node.name
-        time = node.Time
         code = node.code
+        status = node.laststatus
       }
     })
-    this.setState({ titleName: res, lastTime: time, code: code ? code : null })
+    console.log(res)
+    this.setState({ titleName: res ? res : "", inputCode: code ? code : null, lastPersonStatus: status })
+    console.log(res ? res : null)
   }
   Login = async (e) => {
+    e.preventDefault()
     const { Users, TypeOperation, titleName, code } = this.state
     let Single;
     Users.forEach((node, index) => {
       if (node.name === titleName)
-        if (node.isLogin === true)
+        if (node.laststatus === true)
           Single = {
-            personelRef: node.id,
+            id: node.id,
             code: node.code,
-            name: node.name,
-            Time: null,
-            Timeto: new Date().toLocaleTimeString("fa-IR"),
-            strdate: new Date().toLocaleDateString("fa-IR"),
-            isLogin: node.isLogin,
-            isOut: node.isOut
+            // name: node.name,
+            time: new Date().toLocaleTimeString("fa-IR"),
+            LastStatus: true
+            // Timeto: new Date().toLocaleTimeString("fa-IR"),
+            // strdate: new Date().toLocaleDateString("fa-IR"),
+            // isLogin: node.isLogin,
+            // isOut: node.isOut
           }
-      if (node.isOut === true)
+      if (node.laststatus === false)
         Single = {
-          personelRef: node.id,
+          id: node.id,
           code: node.code,
-          name: node.name,
-          Time: new Date().toLocaleTimeString("fa-IR"),
-          Timeto: null,
-          strdate: new Date().toLocaleDateString("fa-IR"),
-          isLogin: node.isLogin,
-          isOut: node.isOut
+          // name: node.name,
+          time: new Date().toLocaleTimeString("fa-IR"),
+          LastStatus: false
+          // Timeto: null,
+          // strdate: new Date().toLocaleDateString("fa-IR"),
+          // isLogin: node.isLogin,
+          // isOut: node.isOut
         }
     })
-    e.preventDefault()
+
     debugger
     if (titleName === "") {
       Notification.fire(
@@ -116,9 +118,9 @@ class App extends Component {
         )
       }
       else {
-
         try {
-          const res = await InsertWork([Single])
+          debugger
+          const res = await InsertWork(Single)
           if (res.status === 200) {
             Notification.fire(
               {
@@ -126,7 +128,7 @@ class App extends Component {
                 title: 'ثبت ساعت کاری با موفقیت انجام شد'
               }
             )
-            this.setState({ titleName: "", code: "" })
+            this.setState({ titleName: "", inputCode: "" })
           }
         }
         catch (ex) {
@@ -144,8 +146,9 @@ class App extends Component {
     const user = [...Users]
     user.forEach((node, index) => {
       if (titleName === node.name) {
-        node.isOut = false
-        node.isLogin = true
+        // node.isOut = false
+        // node.isLogin = true
+        node.laststatus = !node.laststatus
       }
     })
     this.setState({ TypeOperation: "خروج" })
@@ -155,38 +158,50 @@ class App extends Component {
     const user = [...Users]
     user.forEach((node, index) => {
       if (titleName === node.name) {
-        node.isOut = false
-        node.isLogin = true
+        // node.isOut = false
+        // node.isLogin = true
+        node.laststatus = true
       }
     })
     this.setState({ TypeOperation: "ورود" })
   }
-  userOutCss = () => {
+  // userOutCss = () => {
+  //   const { Users, titleName } = this.state
+  //   let res
+  //   const user = [...Users]
+  //   user.forEach((node, index) => {
+  //     if (node.name === titleName) {
+  //       return res = node.lastStatus === false ? "btn disabled cursor-none d-none  btn-outline-danger col-xl-4 col-md-4 col-sm-4 m-4" : "btn btn-outline-danger col-xl-4 col-md-4 col-sm-4 m-4 "
+  //     }
+  //   })
+  //   return res === undefined ? "btn btn-outline-danger col-xl-4 col-md-4 col-sm-4 m-4" : res
+
+  // }
+  // userEnterCss = () => {
+  //   const { Users, titleName } = this.state
+  //   let res
+  //   const user = [...Users]
+  //   user.forEach((node, index) => {
+  //     if (node.name === titleName) {
+  //       return res = node.lastStatus === true ? "btn  btn-outline-success col-xl-4 col-md-4 col-sm-4 m-4" : " btn cursor-none disabled d-none btn-outline-success col-xl-4 col-md-4 col-sm-4 m-4"
+  //     }
+  //   })
+  //   return res === undefined ? "btn btn-outline-success col-xl-4 col-md-4 col-sm-4 m-4" : res
+
+  // }
+  btnCss = () => {
     const { Users, titleName } = this.state
     let res
     const user = [...Users]
     user.forEach((node, index) => {
       if (node.name === titleName) {
-        return res = node.isLogin === true ? "btn disabled cursor-none d-none  btn-outline-danger col-xl-4 col-md-4 col-sm-4 m-4" : "btn btn-outline-danger col-xl-4 col-md-4 col-sm-4 m-4 "
+        return res = node.laststatus === false ? "btn btn-outline-success col-xl-4 col-md-4 col-sm-4 m-4" : " btn btn-outline-danger col-xl-4 col-md-4 col-sm-4 m-4"
       }
     })
-    return res === undefined ? "btn btn-outline-danger col-xl-4 col-md-4 col-sm-4 m-4" : res
-
-  }
-  userEnterCss = () => {
-    const { Users, titleName } = this.state
-    let res
-    const user = [...Users]
-    user.forEach((node, index) => {
-      if (node.name === titleName) {
-        return res = node.isLogin === true ? "btn  btn-outline-success col-xl-4 col-md-4 col-sm-4 m-4" : " btn cursor-none disabled d-none btn-outline-success col-xl-4 col-md-4 col-sm-4 m-4"
-      }
-    })
-    return res === undefined ? "btn btn-outline-success col-xl-4 col-md-4 col-sm-4 m-4" : res
-
+    return res === undefined ? "btn btn-outline-primary col-xl-4 col-md-4 col-sm-4 m-4" : res
   }
   render() {
-    const { titleName, Users, lastTime } = this.state
+    const { titleName, Users, lastTime, lastPersonStatus, inputCode } = this.state
     if (Users === null) return ''
     return (
       <div>
@@ -201,11 +216,10 @@ class App extends Component {
         </div>
         <div className="row">
           <div className="col-lg-3 col-md-2">
-
           </div>
           <div className="col-lg-6 col-md-6 login-box">
             <div className="col-lg-10 login-title  mx-auto">
-              <input autoComplete="off" maxLength={6} minLength={2} value={this.state.code} id="input" type="text" onChange={this.CreatetitleName} className="input form-control-lg text-center no-outline col-7" style={{ fontSize: "45px" }} />
+              <input autoComplete="off" maxLength={6} minLength={2} value={inputCode} id="input" type="text" onChange={this.CreatetitleName} className="input form-control-lg text-center no-outline col-7" style={{ fontSize: "45px" }} />
               <label className="form-control-label col-4" >:کد کاربری</label>
             </div>
             <span className="text-light" style={{ fontSize: "25px" }}>{titleName}</span>
@@ -218,19 +232,18 @@ class App extends Component {
                       aria-disabled="true"
                       type="submit"
                       onClick={this.Exit}
-                      className={this.userOutCss()}
+                      className={this.btnCss()}
                       style={{ fontSize: "35px" }}>
-                      خروج
-                       </button>
-                    <button
+                      {(titleName === "" || titleName === null) ? 'ورود / خروج' : lastPersonStatus === false ? "ورود" : "خروج"}
+                    </button>
+                    {/* <button
                       aria-disabled="true"
                       type="submit"
                       onClick={this.Enter}
-                      className={this.userEnterCss()}
+                      className={this.btnCss()}
                       style={{ fontSize: "35px" }}>
                       ورود
-                    </button>
-
+                    </button> */}
                     <p className="text-light" style={{ fontSize: "20px" }} dir="rtl"> آخرین ثبت ساعت  :<span style={{ fontSize: "20px" }} className="ml-2 mr-2">{lastTime}</span></p>
                   </div>
                 </form>
