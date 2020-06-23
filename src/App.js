@@ -34,28 +34,17 @@ class App extends Component {
     let stdate = new Date().toLocaleDateString("fa-IR")
     const res = await getData({ stdate })
     $("input[type=text]").focus()
-    $('.input').keypress(function (e) {
-      if (e.which === 13) {
-        $('form#login').submit();
-        return false;    //<---- Add this line
-      }
-    });
-    // const result = res.data.map((o, i) => {
-    //   for (var element in o) {
-    //     if (o[element] === 1) {
-    //       o[element] = true
-    //     }
-    //     else if (o[element] === 0) {
-    //       o[element] = false
-    //     }
+    // $('.input').keypress(function (e) {
+    //   if (e.which === 13) {
+    //     $('form#login').submit();
+    //     e.preventDefault()
+    //     return false;
     //   }
-    //   return o
-    // })
-    debugger
-    this.setState({ Users: res.data })
+    // });
+    this.setState({ Users: res.data });
   }
   componentWillMount() {
-    clearInterval(this.timerID)
+    clearInterval(this.timerID);
   }
   tick() {
     this.setState({ time: new Date() })
